@@ -72,11 +72,3 @@ def ligoudanDuoxiangshi(a, b):
 >     9x = 756    
 >      x = 756 / 9   
 >      x = 84   
- 
-python表达解方程
-```python3
-def diufantu(x):
-    return x/6 + x/12 + x/7 + 5 + x/2 + 4
-
-print(diufantu(84))   # 结果(84); 只要返回结果于传入参数一样, 那么就能得出丢番图的年龄.
-```
