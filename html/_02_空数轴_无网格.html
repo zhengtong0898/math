@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>_02_空数轴_无网格</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.3.0/echarts.min.js"></script>
+
+    <!-- 局中样式 -->
+    <style>
+        html, body {
+            margin: 0;
+            height: 100%;
+        }
+        .container {
+            height: 100%;
+            display: flex;
+            flex-direction:row;
+            align-items: center;
+        }
+        #main {
+            margin: 0 auto 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- 居中层 -->
+    <div class="container">
+        <!-- 布画层 -->
+        <div id="main" style="width: 800px;height:600px;"></div>
+    </div>
+
+
+    <!-- 生成图标的指令脚本 -->
+    <script type="text/javascript">
+        // 初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        // 使用刚指定的配置项和数据显示图表
+        myChart.setOption({
+            title: {
+                text: '空数轴',
+                bottom: 0,
+                left: 'center',
+                link: 'https://www.baidu.com',
+            },
+            xAxis: {
+                name: 'X轴',
+                nameLocation: 'start',
+                nameTextStyle: {
+                    padding: [0, 15, 0, 0]
+                },
+                type: 'value',
+                min: -10,
+                max: 10,
+                splitNumber: 20,
+                splitLine: {
+                    show: false,
+                },
+            },
+            yAxis: {
+                name: 'Y轴',
+                nameTextStyle: {
+                    padding: [0, 0, 15, 0]
+                },
+                type: 'value',
+                min: -10,
+                max: 10,
+                splitNumber: 20,
+                splitLine: {
+                    show: false,
+                },
+            }
+        });
+    </script>
+</body>
+</html>

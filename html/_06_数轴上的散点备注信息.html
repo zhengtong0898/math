@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>_06_数轴上的散点备注信息</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.3.0/echarts.min.js"></script>
+
+    <!-- 局中样式 -->
+    <style>
+        html, body {
+            margin: 0;
+            height: 100%;
+        }
+        .container {
+            height: 100%;
+            display: flex;
+            flex-direction:row;
+            align-items: center;
+        }
+        #main {
+            margin: 0 auto 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- 居中层 -->
+    <div class="container">
+        <!-- 布画层 -->
+        <div id="main" style="width: 800px;height:600px;"></div>
+    </div>
+
+
+    <!-- 生成图标的指令脚本 -->
+    <script type="text/javascript">
+        // 初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        // 使用刚指定的配置项和数据显示图表
+        myChart.setOption({
+            title: {
+                text: '数轴上标注一个点',
+                bottom: 0,
+                left: 'center',
+                link: 'https://www.baidu.com',
+            },
+            xAxis: {
+                name: 'X轴',
+                nameLocation: 'start',
+                nameTextStyle: {
+                    padding: [0, 15, 0, 0]
+                },
+                type: 'value',
+                min: -10,
+                max: 10,
+                splitNumber: 20,
+                splitLine: {
+                    show: false,
+                },
+            },
+            yAxis: {
+                name: 'Y轴',
+                nameTextStyle: {
+                    padding: [0, 0, 15, 0]
+                },
+                type: 'value',
+                min: -10,
+                max: 10,
+                splitNumber: 20,
+                splitLine: {
+                    show: false,
+                },
+            },
+            series: [{
+                // label: 散点的标注信息.
+                label: {
+                    show: true,
+                    position: [-40, 25],
+                    formatter: function (params) {
+                        return  'P(' +params.data[0] + ', ' + params.data[1] + ')';
+                    }
+                },
+                type: 'scatter',                     // 散点
+                data: [[5, 8], [-5, -8]],            // 标记一个散点(x: 5, y: 8)
+                symbolSize: 20,
+                markLine: {
+                    lineStyle: {
+                        normal: {type: 'dashed'}
+                    },
+                    data: [
+                        // 第一个散点的两条虚线
+                        [{coord: [5, 0], symbol: 'none'}, {coord: [5, 8], symbol: 'none'}],
+                        [{coord: [0, 8], symbol: 'none'}, {coord: [5, 8], symbol: 'none'}],
+                        // 第二个散点的两条虚线
+                        [{coord: [-5, 0], symbol: 'none'}, {coord: [-5, -8], symbol: 'none'}],
+                        [{coord: [0, -8], symbol: 'none'}, {coord: [-5, -8], symbol: 'none'}],
+                    ]
+                }
+            }],
+            tooltip: {
+                // 鼠标 hover 显示坐标信息
+                trigger: 'item',
+                formatter: function (params) {
+                    if (params.data.length){
+                        return  'P(' +params.data[0] + ', ' + params.data[1] + ')';
+                    }
+                }
+            },
+        });
+    </script>
+</body>
+</html>
