@@ -78,7 +78,8 @@ def ligoudanDuoxiangshi(a, b):
 &nbsp;  
 # 最大公约数
 欧几里得(Euclid's Algorithm)算法用于计算一对`非负数`的最大公约数, 它是一个递归算法, 据说出现在公元前375年, 或许是最早的递归算法实例.   
-最大公约数的符号表达: $ \begin{align} gcd(x, y) = \begin{cases} x & y = 0 \\ gcd(y, x \ mod \  y) & y > 0 \end{cases} \end{align} $
+最大公约数的符号表达: $ \begin{align} gcd(x, y) = \begin{cases} x & y = 0 \\
+                       gcd(y, x \ mod \  y) & y > 0 \end{cases} \end{align} $
 ```shell script
 # 符号表达语法
 \begin{align}
