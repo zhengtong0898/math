@@ -6,7 +6,6 @@
 - 三次方(也被称为立方)  
   $ 2^3 $    
 
-用python表达乘方
 ```python3
 # 使用内置运算符号来表达
 firstPowerOfTwo = 2 ** 1                        # 一次方
@@ -34,7 +33,6 @@ print("thirdPowerOfTwo:  ", thirdPowerOfTwo)    # 8
 > 公式: $ 5mn $   
 > 定义: 数字或字母的积
 
-python表达单项式
 ```python3
 # 由于公式中带有未知数, 因此只能使用函数来解决.
 def ligoudanDanxiangshi(n, m):
@@ -46,8 +44,8 @@ def ligoudanDanxiangshi(n, m):
 # 多项式
 > 李狗蛋买了3根铅笔(a元/根), 2本练习册(b元/本), 总共花了多少钱?  
 > 公式: $ 3a + 2b $   
+> 定义: 两组或以上的数字或字母的积相加、减
 
-python表达多项式
 ```python3
 def ligoudanDuoxiangshi(a, b):
     return (3*a) + (2*b)
@@ -76,32 +74,70 @@ def ligoudanDuoxiangshi(a, b):
 ```
 
 &nbsp;  
-# 最大公约数
-欧几里得(Euclid's Algorithm)算法用于计算一对`非负数`的最大公约数, 它是一个递归算法, 据说出现在公元前375年, 或许是最早的递归算法实例.   
-最大公约数的符号表达: $ \begin{align} gcd(x, y) = \begin{cases} x & y = 0 \\
-                       gcd(y, x \ mod \  y) & y > 0 \end{cases} \end{align} $
-```shell script
-# 符号表达语法
-\begin{align}
-    gcd(x, y) =
-    \begin{cases}
-        x                    & y = 0 \\
-        gcd(y, x \ mod \  y) & y > 0
-    \end{cases}
-\end{align}
-```
-
-&nbsp;  
 # 最小公倍数
 
+
 &nbsp;  
-# 平方根
+# 最大公约数(Greatest Common Divisor)
+欧几里得(Euclid's Algorithm)算法用于计算一对`非负数`的最大公约数, 它是一个递归算法, 据说出现在公元前375年, 或许是最早的递归算法实例;   
+- 符号表达:   
+![Euclid's Algorithm](assets/images/gcd_euclid_algorithm.jpg)   
+- `mathjax`语法表达:  
+  ```shell script
+  \begin{align}
+      gcd(x, y) =
+      \begin{cases}
+          x                    & y = 0 \\
+          gcd(y, x \ mod \  y) & y > 0
+      \end{cases}
+  \end{align}
+  ```
+- 算法解释  
+  gcd(x, y) 是一个函数特征定义, 这于c/c++定义函数声明含义一致;   
+  该函数要求两个参数: x(被除数) 和 y(除数).  gcd算法逻辑如下:   
+  ```   
+  当 y = 0 时, 返回 x ;     
+  当 y > 0 时, 被除数参数由 y 担任(第一个参数), 除数参数则由 x % y 得出(第二个参数).
+  ```  
+- 手算(过程)   
+  ```shell script
+  
+   gcd(20, 30)  = gcd(30, 20 % 30)
+                = gcd(30, 20)
+                = gcd(20, 30 % 20)
+                = gcd(20, 10)
+                = gcd(10, 20 % 10)
+                = gcd(10, 0)
+                = 10
+
+  
+   gcd(114, 42) = gcd(42, 114 % 42)
+                = gcd(42, 30)
+                = gcd(30, 42 % 30)
+                = gcd(30, 12)
+                = gcd(12, 30 % 12)
+                = gcd(12, 6)
+                = gcd(6, 12 % 6)
+                = gcd(6, 0)
+                = 6
+
+  ```
+- 代码
+  [python](src/gcd/gcd.py)  
+  [c++](src/gcd/gcd.cpp)  
+https://www.geeksforgeeks.org/euclidean-algorithms-basic-and-extended/
+
+
+
+&nbsp;  
+# 平方根(sqaure root)
 平方根指的是: 一个数能被平方, 那么就要可以被逆平方, 这个逆运算的结果就叫做平方根.   
 平方根的符号表示为: $ \sqrt{100} = 10 $
+https://www.geeksforgeeks.org/find-square-root-number-upto-given-precision-using-binary-search/
 
 
 &nbsp;  
-# 立方根
+# 立方根(cube root)
 平方根的符号表示为: $ \sqrt[3]{100} = 10 $
 
 
