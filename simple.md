@@ -122,10 +122,11 @@ def ligoudanDuoxiangshi(a, b):
                 = 6
 
   ```
-- 代码
+- 代码  
   [python](src/gcd/gcd.py)  
   [c++](src/gcd/gcd.cpp)  
-https://www.geeksforgeeks.org/euclidean-algorithms-basic-and-extended/
+- 资料参考     
+  [geeksforgeeks](https://www.geeksforgeeks.org/euclidean-algorithms-basic-and-extended/)
 
 
 
