@@ -67,9 +67,9 @@ def ligoudanDuoxiangshi(a: int, b: int) -> int:
 因数(composite numbers | 复合数): `非0` 且 `不是质数` 的数, 都是因数.
 
 [判断一个数是否为质数(prime number)](src/factors.py#L4)   
-[判断一个数是否为因数(composite number)](src/factors.py#L26)   
-[列出一个数的所有质因数(factors)](src/factors.py#L37)   
-[质因数分解法(factorization)](src/factors.py#L61)
+[判断一个数是否为因数(composite number)](src/factors.py#L25)   
+[列出一个数的所有质因数(factors)](src/factors.py#L36)   
+[质因数分解法(factorization)](src/factors.py#L60)
 
 
 &nbsp;  
