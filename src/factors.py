@@ -10,11 +10,10 @@ def isprime(number: int) -> bool:
     3. 一个数肯定不能被大于一半的数整除, 所以: 搜寻范围是 2 ... (被验证数 // 2);
        搜索指的是: 用该范围中的每个数字对 被验证数 进行求模运算, 结果为 非0 的数就是质数.
     """
-
     if number < 2: return False                                                 # 小于2的都不是质数
 
-    half: int = number // 2                                                     # 整除2
-    for i in range(2, half + 1):                                                # 0 和 1 不是质因数, 所以从2开始
+    half: int = number // 2
+    for i in range(2, half + 1):
         if (number % i) == 0:
             break
     else:
@@ -48,10 +47,10 @@ def factors(number: int) -> typing.List[int]:
     大于 number 一半的数字(除了 number 自己之外),
     一定不是 number 的质因数, 这样写能减少匹配范围.
     """
-    result: typing.List[int] = []
+    result: typing.List[int] = [1, ]
     half: int = number // 2
-    for i in range(1, half + 1):
-        if number % i == 0:
+    for i in range(2, half + 1):
+        if (number % i) == 0:
             result.append(i)
     else:
         result.append(number)
