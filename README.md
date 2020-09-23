@@ -68,15 +68,9 @@ def ligoudanDuoxiangshi(a: int, b: int) -> int:
 注意事项: 0和1既不是质数也不是因数.  
 
 [判断一个数是否为质数(prime number)](src/factors.py#L4)   
-[判断一个数是否为因数(composite number)](src/factors.py#L24)   
-[列出一个数的所有质因数(factors)](src/factors.py#L35)
-
-
-
-&nbsp;  
-# 质因数分解法 
-http://www.math.com/school/subject1/lessons/S1U3L1GL.html   
-https://www.youtube.com/watch?v=fdUXGZogSxE
+[判断一个数是否为因数(composite number)](src/factors.py#L26)   
+[列出一个数的所有质因数(factors)](src/factors.py#L37)   
+[质因数分解法(factorization)](src/factors.py#L61)
 
 
 &nbsp;  
