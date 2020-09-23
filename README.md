@@ -64,8 +64,7 @@ def ligoudanDuoxiangshi(a: int, b: int) -> int:
 &nbsp;  
 # 质因数(Factors)
 质数(prime numbers): 一个只能被 `数字1` 和 `自己` 整除的数, 例如: 2, 3, 5, 7, 11, 13, ...;   
-因数(composite numbers | 复合数): 除了能被 `数字1` 和 `自己` 之外 还能被其他数(通常指的是: 2-9)整除的数, 例如: 4, 6, 8, 9, 10, 12;       
-注意事项: 0和1既不是质数也不是因数.  
+因数(composite numbers | 复合数): `非0` 且 `不是质数` 的数, 都是因数.
 
 [判断一个数是否为质数(prime number)](src/factors.py#L4)   
 [判断一个数是否为因数(composite number)](src/factors.py#L26)   
