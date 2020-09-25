@@ -132,7 +132,8 @@ https://www.youtube.com/watch?v=hPpZ7C5rh9E
 [判断一个数是否为约数](src/factors.py#L216)       
 [列出一个数的所有约数](src/factors.py#L226)    
 [列出两个数的公约数](src/factors.py#L235)   
-[列出两个数的最大公约数](src/factors.py#L248)   
+[列出两个数的最大公约数(质因数分解法)](src/factors.py#L248)   
+[列出两个数的最大公约数(辗转相除法: 欧几里得算法)](src/gcd/euclid_algorithm/README.md)   
 
 
 &nbsp;  
