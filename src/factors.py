@@ -10,14 +10,14 @@ def isprime(number: int) -> bool:
     3. 一个数肯定不能被大于一半的数整除, 所以: 搜寻范围是 2 ... (被验证数 // 2);
        搜索指的是: 用该范围中的每个数字对 被验证数 进行求模运算, 结果为 非0 的数就是质数.
     """
-    if number < 2: return False                                                 # 小于2的都不是质数
+    if number < 2: return False                                    # 小于2的都不是质数
 
     half: int = number // 2
     for i in range(2, half + 1):
-        if (number % i) == 0:
+        if (number % i) == 0:                                      # 能被 2 至 half 这个范围的数字整除的数, 都不是质数.
             break
     else:
-        return True
+        return True                                                # 当遍历完之后, 依旧不能被整除, 则表示是一个质数.
 
     return False
 
