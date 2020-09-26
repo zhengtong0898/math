@@ -280,8 +280,6 @@ def common_divisor_factorization(lhs: int, rhs: int) -> typing.List[int]:
     """
     lhs_list = divisor_factorization(lhs)
     rhs_list = divisor_factorization(rhs)
-    print("lhs_list: ", lhs_list)
-    print("rhs_list: ", rhs_list)
     return commom_base(iter(lhs_list), iter(rhs_list))
 
 
