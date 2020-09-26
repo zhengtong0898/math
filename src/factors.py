@@ -47,10 +47,10 @@ def factors(number: int) -> typing.List[int]:
     大于 number 一半的数字(除了 number 自己之外),
     一定不是 number 的质因数, 这样写能减少匹配范围.
     """
-    result: typing.List[int] = [1, ]
+    result: typing.List[int] = []
     half: int = number // 2
     for i in range(2, half + 1):
-        if (number % i) == 0:
+        if (number % i) == 0:               # 短除法: 从最小的数开始尝试整除, 一致到被求数的一半.
             result.append(i)
     else:
         result.append(number)
@@ -86,6 +86,9 @@ def factorization(number: int) -> typing.List[int]:
     i = 2
     result: typing.List[int] = []
 
+    # 这里采取的是质因数分解法的 两数相乘 比较法,
+    # 然后while内部块则负责判断两个数是否都为质数,
+    # 如果都为质数那么就结束, 否则将会持续处理分叉数.
     while (i * i) <= number:
         if (number % i) == 0:
             number //= i
@@ -247,14 +250,51 @@ def common_divisor(lhs: int, rhs: int) -> typing.List[int]:
 
 def greatest_common_divisor(lhs: int, rhs: int) -> int:
     """
-    列出两个数的最大公约数
+    列出两个数的最大公约数(短除法)
 
     :param lhs:
     :param rhs:
     :param stop:
     :return:
     """
-    return common_divisor(lhs, rhs)[-1]
+    cd = common_divisor(lhs, rhs)
+    gcd = cd[-1] if len(cd) > 0 else 1
+    return gcd
+
+
+def divisor_factorization(number: int) -> typing.List[int]:
+    """
+    列出一个数的所有约数(质因数分解法)
+
+    :param number: 被求数
+    """
+    return factorization(number)
+
+
+def common_divisor_factorization(lhs: int, rhs: int) -> typing.List[int]:
+    """
+    列出两个数的公约数(质因数分解法)
+    :param lhs:
+    :param rhs:
+    :return:
+    """
+    lhs_list = divisor_factorization(lhs)
+    rhs_list = divisor_factorization(rhs)
+    print("lhs_list: ", lhs_list)
+    print("rhs_list: ", rhs_list)
+    return commom_base(iter(lhs_list), iter(rhs_list))
+
+
+def greatest_common_divisor_factorization(lhs: int, rhs: int) -> int:
+    """
+    列出两个数的最大公约数(质因数分解法)
+    :param lhs:
+    :param rhs:
+    :return:
+    """
+    cd = common_divisor_factorization(lhs, rhs)
+    gcd = cd[-1] if len(cd) > 0 else 1
+    return gcd
 
 
 def test_isprime():
@@ -301,12 +341,12 @@ def test_factors():
     """
     测试: 验证根据一个数列出该数的所有质因数
     """
-    assert factors(16) == [1, 2, 4, 8, 16]
-    assert factors(20) == [1, 2, 4, 5, 10, 20]
-    assert factors(45) == [1, 3, 5, 9, 15, 45]
-    assert factors(75) == [1, 3, 5, 15, 25, 75]
-    assert factors(73) == [1, 73]
-    assert factors(77) == [1, 7, 11, 77]
+    assert factors(16) == [2, 4, 8, 16]
+    assert factors(20) == [2, 4, 5, 10, 20]
+    assert factors(45) == [3, 5, 9, 15, 45]
+    assert factors(75) == [3, 5, 15, 25, 75]
+    assert factors(73) == [73]
+    assert factors(77) == [7, 11, 77]
 
 
 def test_factorization():
@@ -404,17 +444,17 @@ def test_common_divisor():
     """
     测试: 验证根据两个数列出这两个数的公共约数(除数).
     """
-    assert common_divisor(15, 20) == [1, 5]
-    assert common_divisor(2, 3) == [1]
-    assert common_divisor(2, 4) == [1, 2]
-    assert common_divisor(3, 6) == [1, 3]
-    assert common_divisor(6, 21) == [1, 3]
-    assert common_divisor(6, 6) == [1, 2, 3, 6]
+    assert common_divisor(15, 20) == [5]
+    assert common_divisor(2, 3) == []
+    assert common_divisor(2, 4) == [2]
+    assert common_divisor(3, 6) == [3]
+    assert common_divisor(6, 21) == [3]
+    assert common_divisor(6, 6) == [2, 3, 6]
 
 
 def test_greatest_common_divisor():
     """
-    测试: 验证根据两个数列出这两个数的最大公约数(除数).
+    测试: 验证根据两个数列出这两个数的最大公约数(除数|短除法).
     """
     assert greatest_common_divisor(15, 20) == 5
     assert greatest_common_divisor(2, 3) == 1
@@ -422,6 +462,22 @@ def test_greatest_common_divisor():
     assert greatest_common_divisor(3, 6) == 3
     assert greatest_common_divisor(6, 21) == 3
     assert greatest_common_divisor(6, 6) == 6
+
+
+def test_greatest_common_divisor_factorization():
+    """
+    测试: 验证根据两个数列出这两个数的最大公约数(除数|质因数分解法)
+
+    声明:
+    这里为什么会跟上面的test_greatest_common_divisor不一样.
+    greatest_common_divisor 采用的是 factors, 结果集是质数: 1
+    """
+    assert greatest_common_divisor_factorization(15, 20) == 5
+    assert greatest_common_divisor_factorization(2, 3) == 1
+    assert greatest_common_divisor_factorization(2, 4) == 2
+    assert greatest_common_divisor_factorization(3, 6) == 3
+    assert greatest_common_divisor_factorization(6, 21) == 3
+    assert greatest_common_divisor_factorization(6, 6) == 3
 
 
 
@@ -439,6 +495,7 @@ def main():
     test_divisor()
     test_common_divisor()
     test_greatest_common_divisor()
+    test_greatest_common_divisor_factorization()
 
 
 if __name__ == '__main__':

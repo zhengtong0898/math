@@ -68,14 +68,8 @@ def ligoudanDuoxiangshi(a: int, b: int) -> int:
 
 [判断一个数是否为质数(prime number)](src/factors.py#L4)   
 [判断一个数是否为因数(composite number)](src/factors.py#L25)   
-[列出一个数的所有质因数(factors)](src/factors.py#L36)   
-[质因数分解法(factorization)](src/factors.py#L60)
-
-
-&nbsp;  
-# 短除法
-https://www.youtube.com/watch?v=hPpZ7C5rh9E
-
+[列出一个数的所有质数(短除法)](src/factors.py#L36)   
+[列出一个数的所有质数(质因数分解法)](src/factors.py#L60)
 
 
 &nbsp;  
@@ -111,10 +105,10 @@ https://www.youtube.com/watch?v=hPpZ7C5rh9E
 > 2 和 3 公有的倍数有:  6, 12, 18, 24, 30  
 
 最小公倍数: 两个数的公有倍数清单中, 最小的那个倍数被称为最小公倍数, 以上面例子来看最小的那个公倍数就是 `6`.   
-[判断一个数是否为倍数](src/factors.py#L102)  
-[列出一个数的倍数](src/factors.py#L112)  
-[列出两个数的公倍数](src/factors.py#L192)  
-[列出两个数的最小公倍数](src/factors.py#L205)
+[判断一个数是否为倍数](src/factors.py#L105)  
+[列出一个数的倍数](src/factors.py#L115)  
+[列出两个数的公倍数](src/factors.py#L195)  
+[列出两个数的最小公倍数](src/factors.py#L208)
 
 
 
@@ -129,10 +123,11 @@ https://www.youtube.com/watch?v=hPpZ7C5rh9E
 > 20 和 30 公有的约数有: 1, 2, 5, 10
 
 最大公约数: 两个数公有约数清单中, 最大的那个约数被称为最大公约数, 以上面例子来看最大的那个公约数就是 `10`.    
-[判断一个数是否为约数](src/factors.py#L216)       
-[列出一个数的所有约数](src/factors.py#L226)    
-[列出两个数的公约数](src/factors.py#L235)   
-[列出两个数的最大公约数(质因数分解法)](src/factors.py#L248)   
+[判断一个数是否为约数](src/factors.py#L219)       
+[列出一个数的所有约数](src/factors.py#L229)    
+[列出两个数的公约数](src/factors.py#L238)   
+[列出两个数的最大公约数(短除法)](src/factors.py#L251)   
+[列出两个数的最大公约数(质因数分解法)](src/factors.py#L288)   
 [列出两个数的最大公约数(辗转相除法: 欧几里得算法)](src/gcd/euclid_algorithm/README.md)   
 
 
