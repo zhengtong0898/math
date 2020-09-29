@@ -3,54 +3,161 @@ import typing
 
 def isprime(number: int) -> bool:
     """
-    判断一个数是否为质数
+    判断一个数是否为质数, 时间复杂度O(logn).
 
-    1. 能被2整除的数都是因数(复合数|composite number), 2除外.
-    2. 剩下不能被2整除的数, 仍然有一部分因数, 例如: 21 不能被2整除, 它并不是只能 1 和 21, 它还能被3或7整除.
-    3. 一个数肯定不能被大于一半的数整除, 所以: 搜寻范围是 2 ... (被验证数 // 2);
-       搜索指的是: 用该范围中的每个数字对 被验证数 进行求模运算, 结果为 非0 的数就是质数.
+    参考:
+    How to Find Prime Numbers?
+    https://byjus.com/maths/prime-numbers/
     """
-    if number < 2: return False                                    # 小于2的都不是质数
+    if number in (2, 3, 5, 7, 11): return True
+    if number < 2: return False
+    if number % 2 == 0: return False
+    if number % 3 == 0: return False
+    if number % 5 == 0: return False
+    if number % 7 == 0: return False
+    if number % 11 == 0: return False
+
+    i = 6
+    square_root = int(number ** 0.5)
+    while i < square_root:
+        if number % (i-1) == 0: return False
+        if number % (i+1) == 0: return False
+        i += 6
+    return True
+
+
+def isprime1(number: int) -> bool:
+    """
+    判断一个数是否为质数(对半迭代求模法), 时间复杂度O(logn)
+
+    如何判断一个数是否能被2整除?
+    通常是采用 %(求模) 来判断, 例如: 16 % 2 == 0; 表示 16可以被2整除.
+
+    如果不能被2整除, 那怎么办?
+    那就尝试用3去求模判断是否能被3整除, 以此类推往下迭代.
+    """
+    if number < 2: return False                                 # 小于2的都不是质数.
+    if number in (2, 3): return True                            # 2, 3 是质数
+    if number % 2 == 0: return False                            # 能被2整除的都不是质数.
+    if number % 3 == 0: return False                            # 能被3整除的都不是质数.
+
+    square_root = int(number ** 0.5)                            # 对数操作: 通过平方根运算, 锁定对数范围.
+    for i in range(5, square_root+1):
+        if (number % i) == 0: return False                      # number 能被 i 整除, 所以 number 不是质数.
+    return True
+
+
+def isprime2(number: int) -> bool:
+    """
+    判断一个数是否为质数(对半迭代求模法), 时间复杂度O(logn), 性能是 isprime, isprime2 的3倍.
+
+    参考:
+    isPrime Function for Python Language?
+    https://stackoverflow.com/a/15285588/12353483
+    """
+    if number < 2: return False
+    if number in (2, 3): return True
+    if number % 2 == 0: return False
+    if number % 3 == 0: return False
+    if number < 9: return True
+
+    i = 5
+    square_root = int(number ** 0.5)
+    while i <= square_root:
+        if number % i == 0: return False                        # 6(i) + 5 一定不会被2整除
+        if number % (i+2) == 0: return False                    #
+        i += 6                                                  # 步长: 6
+
+    return True
+
+
+def isprime3(number: int) -> bool:
+    if number < 2: return False
+    if number in (2, 3): return True
+    if number % 2 == 0: return False
+    if number % 3 == 0: return False
+
+    i = 5                                                       # 0,1不是质因数, 2,3是质数, 4可以被2整除, 所以从5开始.
+    while (i * i) < number:                                     # 对数操作: 平方运算, 锁定对数范围
+        if (number % i) == 0: return False                      # number 能被 i 整除, 所以 number 不是质数.
+        i += 1
+
+    if (i * i) == number: return False
+    return True                                                 # 质数/素数: prime number.
+
+
+def isprime4(number: int) -> bool:
+    """
+    判断一个数是否为质数(对半迭代求模法), 时间复杂度O(n)
+    """
+    if number < 2: return False                                # 小于2的都不是质数.
 
     half: int = number // 2
-    for i in range(2, half + 1):
-        if (number % i) == 0:                                      # 能被 2 至 half 这个范围的数字整除的数, 都不是质数.
-            break
+    for i in range(2, half + 1):                               # i 的范围是: 2 -- half
+        if (number % i) == 0:
+            break                                              # number 能被 i 整除, 所以 number 不是质数.
     else:
-        return True                                                # 当遍历完之后, 依旧不能被整除, 则表示是一个质数.
-
+        return True                                            # 质数/素数: prime number.
     return False
 
 
 def iscomposite(number: int) -> bool:
     """
     判断一个数是否为因数(composite number|复合数)
-
-    A natural number that is not prime.
-    1 is not Prime and also not Composite.
     """
-    if number < 2: return False
+    if number < 2: return False                                # 负数, 0, 1 都不是质因数.
     return isprime(number) == False
 
 
 def factors(number: int) -> typing.List[int]:
     """
-    列出 number 的所有质因数
+    列出 number 的所有质因数, 时间复杂度O(logn)
 
-    TODO: 这里有说: 1 is not Prime and also not Composite.
-    https://www.mathsisfun.com/prime-composite-number.html
+    例如:
+    10 = [1, 2, 5, 10]
+    16 = [1, 2, 4, 8, 16]
 
-    TODO: 数字1 如果不是质因数, 那为什么要列出来?  :  16 --> 1, 2, 4, 8, 16
-    http://www.math.com/school/subject1/lessons/S1U3L1DP.html
+    算法(以10为例):
+    1 x 10 = 10         # [1, 10]
+    2 x  5 = 10         # [1, 10, 2, 5]
+                        # [1, 2, 5, 10]         排序后
 
-    为什么要定义half变量?
-    大于 number 一半的数字(除了 number 自己之外),
-    一定不是 number 的质因数, 这样写能减少匹配范围.
+    算法(以16为例):
+    1 x 16 = 16         # [1, 16]
+    2 x  8 = 16         # [1, 16, 2, 8]
+    4 x  4 = 16         # [1, 16, 2, 8, 4]
+                        # [1, 2, 3, 8, 16]      排序后
+
+    根据定义声明, 一个数能被另外一个数整除, 那么它一定不是质数, 所以写代码也要围绕这个概念来写.
+    1. 框定一个范围: 采用 (i * i) 或者 sqaure_root 方式.
+    2. 遍历该范围的每个数, 对被求数进行挨个求模.
     """
-    result: typing.List[int] = []
+    i = 2
+    if number < i: return []
+
+    result: typing.List[int] = [1, ]                           # 头加1
+    while (i * i) < number:
+        if (number % i) == 0:
+            result.append(i)                                   # number 能被 i 整除, 所以 i 是 number 的质因数(factors).
+        else:
+            i += i
+    else:
+        result.append(number)                                  # 尾加自己
+
+    return result
+
+
+def factors2(number: int) -> typing.List[int]:
+    """
+    列出 number 的所有质因数, 时间复杂度O(n)
+    """
+    result: typing.List[int] = [1, ]
+    if number <= 0: return []
+    if number == 1: return result
+
     half: int = number // 2
     for i in range(2, half + 1):
-        if (number % i) == 0:               # 短除法: 从最小的数开始尝试整除, 一致到被求数的一半.
+        if (number % i) == 0:
             result.append(i)
     else:
         result.append(number)
@@ -60,6 +167,27 @@ def factors(number: int) -> typing.List[int]:
 def factorization(number: int) -> typing.List[int]:
 
     """
+    列出一个数的质数(分解)集合.
+
+    例如:
+    10 = 2 x 5;
+    12 = 2 x 2 x 3;
+    15 = 3 x 5;
+    16 = 2 x 2 x 2 x 2;
+
+    算法(以16举例):
+    16 / 2 = 8;         # [2, ]            16可以被2整除, 把2纳入结果集
+     8 / 2 = 4;         # [2, 2]           8可以被2整除, 把2纳入结果集
+     4 / 2 = 2;         # [2, 2, 2]        4可以被2整除, 把2纳入结果集
+                        # [2, 2, 2, 2]     最后剩下2是一个质数, 不能再继续被整除, 所以也把这个数字纳入结果集.
+    算法(以168为例):
+    168 / 2 = 84;       # [2, ]            168可以被2整除, 把2纳入结果集
+     84 / 2 = 42;       # [2, 2]           84可以被2整除, 把2纳入结果集
+     42 / 2 = 21;       # [2, 2, 2]        42可以被2整除, 把2纳入结果集
+     21 / 3 = 7;        # [2, 2, 2, 3]     21可以被3整除, 把2纳入结果集
+                        # [2, 2, 2, 3, 7]  最后剩下7是一个质数, 不能再继续被整除, 所以也把这个数字纳入结果集.
+
+    TODO: 考虑移除下面这些说明.
     质因数分解法
 
     质因数分解的本质原理是用两个数相乘得出的结果等于被求数, 例如:
@@ -91,6 +219,7 @@ def factorization(number: int) -> typing.List[int]:
     # 如果都为质数那么就结束, 否则将会持续处理分叉数.
     while (i * i) <= number:
         if (number % i) == 0:
+            print("number: ", number)
             number //= i
             result.append(i)
         else:
@@ -112,7 +241,7 @@ def ismultiple(multiple: int, number: int) -> bool:
     return (multiple % number) == 0
 
 
-def multiples(number: int, limit: int = 10) -> typing.List[int]:
+def multiples(number: int, limit: int = 10) -> typing.Iterator[int]:
     """
     列出一个数的倍数
 
@@ -127,10 +256,10 @@ def multiples(number: int, limit: int = 10) -> typing.List[int]:
     result = []
     while True:
         if limit and len(result) >= limit: break
-        multiple = number * count
-        if ismultiple(multiple, number):
-            result.append(multiple)
-            yield multiple
+        multiple = number * count                           # 两数相乘(用于匹配)被称为质因数分解法套路
+        if ismultiple(multiple, number):                    # 备注: 这个函数跟factorization有什么区别?
+            result.append(multiple)                         # 两者都是用质因数分解法的套路, 唯一的区别是
+            yield multiple                                  # factorization是求约数, 而当前函数求得是倍数.
         count += 1
 
     # 方式二:
@@ -339,12 +468,12 @@ def test_factors():
     """
     测试: 验证根据一个数列出该数的所有质因数
     """
-    assert factors(16) == [2, 4, 8, 16]
-    assert factors(20) == [2, 4, 5, 10, 20]
-    assert factors(45) == [3, 5, 9, 15, 45]
-    assert factors(75) == [3, 5, 15, 25, 75]
-    assert factors(73) == [73]
-    assert factors(77) == [7, 11, 77]
+    assert factors(16) == [1, 2, 4, 8, 16]
+    assert factors(20) == [1, 2, 4, 5, 10, 20]
+    assert factors(45) == [1, 3, 5, 9, 15, 45]
+    assert factors(75) == [1, 3, 5, 15, 25, 75]
+    assert factors(73) == [1, 73]
+    assert factors(77) == [1, 7, 11, 77]
 
 
 def test_factorization():
@@ -412,6 +541,8 @@ def test_least_common_multiple():
     assert least_common_multiple(6, 7) == 42
     assert least_common_multiple(4, 6) == 12
     assert least_common_multiple(2, 4) == 4
+    assert least_common_multiple(12, 80) == 240
+    assert least_common_multiple(50, 65) == 650
 
 
 def test_divisor():
@@ -478,22 +609,23 @@ def test_greatest_common_divisor_factorization():
     assert greatest_common_divisor_factorization(6, 6) == 3
 
 
-
 def main():
-    test_isprime()
-    test_iscomposite()
-    test_factors()
-    test_factorization()
-
-    test_multiple()
-    test_multiples()
-    test_common_multiple()
-    test_least_common_multiple()
-
-    test_divisor()
-    test_common_divisor()
-    test_greatest_common_divisor()
-    test_greatest_common_divisor_factorization()
+    # print([i for i in range(101) if isprime(i)])
+    print(isprime(5003))
+    # test_isprime()
+    # test_iscomposite()
+    # test_factors()
+    # test_factorization()
+    #
+    # test_multiple()
+    # test_multiples()
+    # test_common_multiple()
+    # test_least_common_multiple()
+    #
+    # test_divisor()
+    # test_common_divisor()
+    # test_greatest_common_divisor()
+    # test_greatest_common_divisor_factorization()
 
 
 if __name__ == '__main__':

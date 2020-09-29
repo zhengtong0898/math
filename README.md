@@ -9,55 +9,44 @@
 
 
 # 乘方
-- 一次方  
-  $ 2^1 $
-- 二次方(也被称为平方)  
-  $ 2^2 $
-- 三次方(也被称为立方)  
-  $ 2^3 $    
+> 一次方:       $ 2^1 $      
+> 二次方(平方): $ 2^2 $    
+> 三次方(立方): $ 2^3 $       
 
 ```python3
 # 使用内置运算符号来表达
-firstPowerOfTwo = 2 ** 1                        # 一次方
-secondPowerOfTwo = 2 ** 2                       # 二次方(平方)
-thirdPowerOfTwo = 2 ** 3                        # 三次方(立方)
-
-print("firstPowerOfTwo:  ", firstPowerOfTwo)    # 2
-print("secondPowerOfTwo: ", secondPowerOfTwo)   # 4
-print("thirdPowerOfTwo:  ", thirdPowerOfTwo)    # 8
-
+a = 2 ** 1                        # 2: 一次方           
+b = 2 ** 2                        # 4: 二次方(平方)       
+c = 2 ** 3                        # 8: 三次方(立方)        
 
 # 使用内置函数来表达
-firstPowerOfTwo = pow(2, 1)                     # 一次方
-secondPowerOfTwo = pow(2, 2)                    # 二次方(平方)
-thirdPowerOfTwo = pow(2, 3)                     # 三次方(立方)
-
-print("firstPowerOfTwo:  ", firstPowerOfTwo)    # 2
-print("secondPowerOfTwo: ", secondPowerOfTwo)   # 4
-print("thirdPowerOfTwo:  ", thirdPowerOfTwo)    # 8
+d = pow(2, 1)                     # 2: 一次方             
+e = pow(2, 2)                     # 4: 二次方(平方)       
+f = pow(2, 3)                     # 8: 三次方(立方)       
 ```
 
 &nbsp;  
 # 单项式
+> 定义: 一组数字或字母的积
+>
 > 李狗蛋买了n套书, 每套有m本, 每本5元, 总共花了多少钱?  
 > 公式: $ 5mn $   
-> 定义: 数字或字母的积
 
 ```python3
-# 由于公式中带有未知数, 因此只能使用函数来解决.
-def ligoudanDanxiangshi(n: int, m: int) -> int:
+def danxiangshi(n: int, m: int) -> int:
     return 5*n*m
 ```
 
 
 &nbsp;  
 # 多项式
+> 定义: 两组或以上的数字或字母的积相加、减
+>>
 > 李狗蛋买了3根铅笔(a元/根), 2本练习册(b元/本), 总共花了多少钱?  
 > 公式: $ 3a + 2b $   
-> 定义: 两组或以上的数字或字母的积相加、减
 
 ```python3
-def ligoudanDuoxiangshi(a: int, b: int) -> int:
+def duoxiangshi(a: int, b: int) -> int:
     return (3*a) + (2*b)
 ``` 
 
@@ -70,6 +59,46 @@ def ligoudanDuoxiangshi(a: int, b: int) -> int:
 [判断一个数是否为因数(composite number)](src/factors.py#L25)   
 [列出一个数的所有质数(短除法)](src/factors.py#L36)   
 [列出一个数的所有质数(质因数分解法)](src/factors.py#L60)
+
+&nbsp;  
+# 最小公倍数(Least common multiple)
+倍数(multiple): `10 / 2 = 5` 中 10 能被 2 整除, 即: 10 可以被称为是 2 的倍数.   
+公倍数: 两个数公有的倍数叫做公倍数, 以 `2` 和 `3` 举例, 找出他们的公倍数:
+   
+> 倍数列表去 
+> 2 的倍数有: 4, 6,  8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30   
+> 3 的倍数有: 6, 9, 12, 15, 18, 21, 24, 27, 30
+>  
+> 2 和 3 公有的倍数有:  6, 12, 18, 24, 30  
+
+最小公倍数: 两个数的公有倍数清单中, 最小的那个倍数被称为最小公倍数, 以上面例子来看最小的那个公倍数就是 `6`.   
+[判断一个数是否为倍数](src/factors.py#L105)  
+[列出一个数的倍数](src/factors.py#L115)  
+[列出两个数的公倍数](src/factors.py#L195)  
+[列出两个数的最小公倍数(质因数分解法: 判断两数相乘的积是否为倍数)](src/factors.py#L208)   
+[列出两个数的最小公倍数(质因数分解法: )](src/factors.py#L288)   
+
+
+
+&nbsp;  
+# 最大公约数(Greatest Common Divisor)
+约数(divisor | submultiple): `10 / 2 = 5` 中 10 能被 2 整除, 即: 2 可以被称为是 10 的约数.   
+公约数: 两个数公有的约数叫做公约数, 以 `20` 和 `30` 举例, 找出他们的公约数:   
+
+> 20 的约数有: 1, 2, 4, 5, 10, 20   
+> 30 的约数有: 1, 2, 3, 5, 10, 15, 30   
+>
+> 20 和 30 公有的约数有: 1, 2, 5, 10
+
+最大公约数: 两个数公有约数清单中, 最大的那个约数被称为最大公约数, 以上面例子来看最大的那个公约数就是 `10`.    
+[判断一个数是否为约数](src/factors.py#L219)       
+[列出一个数的所有约数](src/factors.py#L229)    
+[列出两个数的公约数](src/factors.py#L238)   
+[列出两个数的最大公约数(短除法)](src/factors.py#L251)   
+[列出两个数的最大公约数(质因数分解法: 判断两数相乘的积是否小于或等于被求数)](src/factors.py#L288)   
+[列出两个数的最大公约数(辗转相除法: 欧几里得算法)](src/gcd/euclid_algorithm/README.md)    
+
+
 
 
 &nbsp;  
@@ -93,42 +122,6 @@ def ligoudanDuoxiangshi(a: int, b: int) -> int:
 9x / 9 = 756 / 9                                # 系数化一 
      x = 84   
 ```
-
-&nbsp;  
-# 最小公倍数(Least common multiple)
-倍数(multiple): `10 / 2 = 5` 中 10 能被 2 整除, 即: 10 可以被称为是 2 的倍数.   
-公倍数: 两个数公有的倍数叫做公倍数, 以 `2` 和 `3` 举例, 找出他们的公倍数:   
-
-> 2 的倍数有: 4, 6,  8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30   
-> 3 的倍数有: 6, 9, 12, 15, 18, 21, 24, 27, 30
->  
-> 2 和 3 公有的倍数有:  6, 12, 18, 24, 30  
-
-最小公倍数: 两个数的公有倍数清单中, 最小的那个倍数被称为最小公倍数, 以上面例子来看最小的那个公倍数就是 `6`.   
-[判断一个数是否为倍数](src/factors.py#L105)  
-[列出一个数的倍数](src/factors.py#L115)  
-[列出两个数的公倍数](src/factors.py#L195)  
-[列出两个数的最小公倍数](src/factors.py#L208)
-
-
-
-&nbsp;  
-# 最大公约数(Greatest Common Divisor)
-约数(divisor | submultiple): `10 / 2 = 5` 中 10 能被 2 整除, 即: 2 可以被称为是 10 的约数.   
-公约数: 两个数公有的约数叫做公约数, 以 `20` 和 `30` 举例, 找出他们的公约数:   
-
-> 20 的约数有: 1, 2, 4, 5, 10, 20   
-> 30 的约数有: 1, 2, 3, 5, 10, 15, 30   
->
-> 20 和 30 公有的约数有: 1, 2, 5, 10
-
-最大公约数: 两个数公有约数清单中, 最大的那个约数被称为最大公约数, 以上面例子来看最大的那个公约数就是 `10`.    
-[判断一个数是否为约数](src/factors.py#L219)       
-[列出一个数的所有约数](src/factors.py#L229)    
-[列出两个数的公约数](src/factors.py#L238)   
-[列出两个数的最大公约数(短除法)](src/factors.py#L251)   
-[列出两个数的最大公约数(质因数分解法)](src/factors.py#L288)   
-[列出两个数的最大公约数(辗转相除法: 欧几里得算法)](src/gcd/euclid_algorithm/README.md)   
 
 
 &nbsp;  
