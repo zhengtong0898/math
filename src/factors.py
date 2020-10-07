@@ -9,24 +9,21 @@ def isprime(number: int) -> bool:
     How to Find Prime Numbers?
     https://byjus.com/maths/prime-numbers/
     """
-    if number in (2, 3, 5, 7, 11): return True
+    if number in (2, 3): return True
     if number < 2: return False
     if number % 2 == 0: return False
     if number % 3 == 0: return False
-    if number % 5 == 0: return False
-    if number % 7 == 0: return False
-    if number % 11 == 0: return False
 
     i = 6
     square_root = int(number ** 0.5)
-    while i < square_root:
+    while i <= square_root+1:
         if number % (i-1) == 0: return False
         if number % (i+1) == 0: return False
         i += 6
     return True
 
 
-def isprime1(number: int) -> bool:
+def isprime2(number: int) -> bool:
     """
     判断一个数是否为质数(对半迭代求模法), 时间复杂度O(logn)
 
@@ -47,7 +44,7 @@ def isprime1(number: int) -> bool:
     return True
 
 
-def isprime2(number: int) -> bool:
+def isprime3(number: int) -> bool:
     """
     判断一个数是否为质数(对半迭代求模法), 时间复杂度O(logn), 性能是 isprime, isprime2 的3倍.
 
@@ -59,7 +56,7 @@ def isprime2(number: int) -> bool:
     if number in (2, 3): return True
     if number % 2 == 0: return False
     if number % 3 == 0: return False
-    if number < 9: return True
+    # if number < 9: return True
 
     i = 5
     square_root = int(number ** 0.5)
@@ -71,7 +68,7 @@ def isprime2(number: int) -> bool:
     return True
 
 
-def isprime3(number: int) -> bool:
+def isprime4(number: int) -> bool:
     if number < 2: return False
     if number in (2, 3): return True
     if number % 2 == 0: return False
@@ -86,14 +83,13 @@ def isprime3(number: int) -> bool:
     return True                                                 # 质数/素数: prime number.
 
 
-def isprime4(number: int) -> bool:
+def isprime5(number: int) -> bool:
     """
     判断一个数是否为质数(对半迭代求模法), 时间复杂度O(n)
     """
     if number < 2: return False                                # 小于2的都不是质数.
 
-    half: int = number // 2
-    for i in range(2, half + 1):                               # i 的范围是: 2 -- half
+    for i in range(2, number + 1):
         if (number % i) == 0:
             break                                              # number 能被 i 整除, 所以 number 不是质数.
     else:
@@ -126,28 +122,43 @@ def factors(number: int) -> typing.List[int]:
     1 x 16 = 16         # [1, 16]
     2 x  8 = 16         # [1, 16, 2, 8]
     4 x  4 = 16         # [1, 16, 2, 8, 4]
-                        # [1, 2, 3, 8, 16]      排序后
-
-    根据定义声明, 一个数能被另外一个数整除, 那么它一定不是质数, 所以写代码也要围绕这个概念来写.
-    1. 框定一个范围: 采用 (i * i) 或者 sqaure_root 方式.
-    2. 遍历该范围的每个数, 对被求数进行挨个求模.
+                        # [1, 2, 4, 8, 16]      排序后
     """
-    i = 2
-    if number < i: return []
+    if number < 2: return []
+    result: typing.List[int] = [1, number]                     # 头加1
 
-    result: typing.List[int] = [1, ]                           # 头加1
-    while (i * i) < number:
+    i = 2
+    while (i * i) < number:                                    # 平方
         if (number % i) == 0:
             result.append(i)                                   # number 能被 i 整除, 所以 i 是 number 的质因数(factors).
-        else:
-            i += i
-    else:
-        result.append(number)                                  # 尾加自己
+            result.append(number//i)
+        i += 1
 
-    return result
+    if (i * i) == number: result.append(i)                     # 尾加自己
+    return sorted(result)
 
 
 def factors2(number: int) -> typing.List[int]:
+    """
+    列出 number 的所有质因数, 时间复杂度O(logn)
+    """
+    result: typing.List[int] = [1, number]
+
+    sqaure_root_float = (number ** 0.5)                        # 平方根
+    square_root_int = int(sqaure_root_float)
+    same_square = sqaure_root_float == square_root_int
+    sqaure_root = square_root_int if same_square else (square_root_int + 1)
+
+    for i in range(2, sqaure_root):
+        if number % i == 0:
+            result.append(i)
+            result.append(number//i)
+
+    if same_square: result.append(square_root_int)
+    return sorted(result)
+
+
+def factors3(number: int) -> typing.List[int]:
     """
     列出 number 的所有质因数, 时间复杂度O(n)
     """
@@ -155,17 +166,15 @@ def factors2(number: int) -> typing.List[int]:
     if number <= 0: return []
     if number == 1: return result
 
-    half: int = number // 2
-    for i in range(2, half + 1):
+    for i in range(2, number):
         if (number % i) == 0:
             result.append(i)
-    else:
-        result.append(number)
+
+    result.append(number)
     return result
 
 
 def factorization(number: int) -> typing.List[int]:
-
     """
     列出一个数的质数(分解)集合.
 
@@ -186,48 +195,19 @@ def factorization(number: int) -> typing.List[int]:
      42 / 2 = 21;       # [2, 2, 2]        42可以被2整除, 把2纳入结果集
      21 / 3 = 7;        # [2, 2, 2, 3]     21可以被3整除, 把2纳入结果集
                         # [2, 2, 2, 3, 7]  最后剩下7是一个质数, 不能再继续被整除, 所以也把这个数字纳入结果集.
-
-    TODO: 考虑移除下面这些说明.
-    质因数分解法
-
-    质因数分解的本质原理是用两个数相乘得出的结果等于被求数, 例如:
-    12 = 3 * 4;      这种分解通过心算(小时候背过的乘法口诀)能得出这个表达式, 但是表达式还能被进一步再分解, 因为4不是质数.
-    12 = 2 * 2 * 3;  这样才是正确的质因数分解表达式， 因为右侧表达式中每个项都是质数.
-
-    程序没有心算能力, 所以只能按照一些特定原则和范围来进行推到:
-    1. 从 i = 2 开始:        是因为 0 和 1 不是质数(结果集必须是质数), i是要被放入到结果集中的数.
-    2. (i * i) <= number:    两个数相乘 等于 被求数 是一个有效的分解, 如果两个数都是质数, 就不能再进一步推到, 反之.
-                             两个数相乘 小于 被求数 是一个无效的分解, 但是还可以被进一步推到.
-                             两个数相乘 大于 被求数 是一个无效的分解, 不可以继续推到, 跳出循环.
-    3. (number % i) == 0:    能被i求模, 就意味着i是一个有效的质数.
-                             这里解释一下为什么i能被求模就一定是质数, 因为整个算法是从小到大去求模,
-                             所以能被2求模掉的数, 后续就不会再出现能被4求模的数了, 也不会再出现能被6求模的数了, 以此类推.
-
-    4. result.append(i):     由于推到是从最小的有效质数2开始, 所以不需要再次确认i还不能能再被拆分.
-    5. number //= i:         是为了能够继续分解剩下的数字, 例如:
-                             20 = 2 * 10
-                             10 = 20 // 2
-                             5  =  10 // 2
-                             2  = 5 // 2            -->   (2 * 2) <= 2 不成立, 退出程序.
     """
+    result: typing.List[int] = []
+    if number < 2: return result
 
     i = 2
-    result: typing.List[int] = []
-
-    # 这里采取的是质因数分解法的 两数相乘 比较法,
-    # 然后while内部块则负责判断两个数是否都为质数,
-    # 如果都为质数那么就结束, 否则将会持续处理分叉数.
     while (i * i) <= number:
         if (number % i) == 0:
-            print("number: ", number)
             number //= i
             result.append(i)
         else:
-            i += 1
+            i += 1                                             # 只有不满足条件才会+1, 所以没有for版本.
 
-    if number >= 2:
-        result.append(number)
-
+    if number >= 2: result.append(number)
     return result
 
 
@@ -241,30 +221,53 @@ def ismultiple(multiple: int, number: int) -> bool:
     return (multiple % number) == 0
 
 
-def multiples(number: int, limit: int = 10) -> typing.Iterator[int]:
+def isdivisor(number: int, divisor: int) -> bool:
+    """
+    判断一个数是否为约数
+
+    :param number: 被求数
+    :param divisor: 约数
+    """
+    return (number % divisor) == 0
+
+
+def multiples(number: int, limit: int = 10, infinite: bool = False) -> typing.Iterator[int]:
     """
     列出一个数的倍数
 
-    :param number: 被求数
-    :param limit:   查找倍数的范围
+    :param number:   被求数
+    :param limit:    查找倍数的范围
+    :param infinite: True: limit参数无效; False: limit参数有效;
+
+    使用这种方式写代码的好处是, 复杂场景的筛选条件可以交给外部来定夺.
+    例如: test_common_multiple的测试场景, 要筛选某些数而不是特定范围.
     """
 
-    # 方式一:
-    # 使用这种方式写代码的好处是, 复杂场景的筛选条件可以交给外部来定夺.
-    # 例如: test_common_multiple的测试场景, 要筛选某些数而不是特定范围.
-    count = 1
-    result = []
+    i = 1
     while True:
-        if limit and len(result) >= limit: break
-        multiple = number * count                           # 两数相乘(用于匹配)被称为质因数分解法套路
-        if ismultiple(multiple, number):                    # 备注: 这个函数跟factorization有什么区别?
-            result.append(multiple)                         # 两者都是用质因数分解法的套路, 唯一的区别是
-            yield multiple                                  # factorization是求约数, 而当前函数求得是倍数.
-        count += 1
+        if not infinite:
+            if limit < i: break
+        yield (number * i)
+        i += 1
 
-    # 方式二:
-    # 使用这种写法比较简单, 运行效率也会相对更高, 但是不够灵活(指的是 limit 强行限制的范围).
-    # return [number * i for i in range(2, limit+2)]
+
+def multiples2(number: int, limit: int = 10) -> typing.List[int]:
+
+    """
+    列出一个数的倍数
+
+    使用这种写法比较简单, 运行效率也会相对更高, 但是不够灵活(指的是 limit 强行限制的范围).
+    """
+    return [number * i for i in range(2, limit + 2)]
+
+
+def divisors(number: int) -> typing.List[int]:
+    """
+    列出一个数的所有约数
+
+    :param number: 被求数
+    """
+    return factors(number)
 
 
 def commom_base(lhs_iter: typing.Iterator,
@@ -308,17 +311,19 @@ def commom_base(lhs_iter: typing.Iterator,
         if status is False: break
     return sorted(list(result))[0:limit]
 
+
+def common_base2(lhs: int, rhs: int, limit: int = 10):
     # 方式二:
     # 这个代码有严重的性能问题, 没迭代一次循环, multiple的方式二都会从0开始迭代数值, 成几何倍数的方式在增长.
-    # offset = 10
-    # result = set()
-    # while True:
-    #     lr = set(multiples(lhs, limit=offset))
-    #     rr = set(multiples(rhs, limit=offset))
-    #     [result.add(i) for i in list(lr.intersection(rr))]
-    #     if len(result) >= limit: break
-    #     offset += offset
-    # return sorted(list(result))[0:limit]
+    offset = 10
+    result = set()
+    while True:
+        lr = set(multiples(lhs, limit=offset))
+        rr = set(multiples(rhs, limit=offset))
+        [result.add(i) for i in list(lr.intersection(rr))]
+        if len(result) >= limit: break
+        offset += offset
+    return sorted(list(result))[0:limit]
 
 
 def commom_multiple(lhs: int, rhs: int, limit: int = 10) -> typing.List[int]:
@@ -329,8 +334,8 @@ def commom_multiple(lhs: int, rhs: int, limit: int = 10) -> typing.List[int]:
     :param rhs: 数b
     :param limit: 查找两个数的公倍数范围
     """
-    lhs_iter = multiples(lhs, limit=0)
-    rhs_iter = multiples(rhs, limit=0)
+    lhs_iter = multiples(lhs, infinite=True)
+    rhs_iter = multiples(rhs, infinite=True)
     return commom_base(lhs_iter, rhs_iter, limit)
 
 
@@ -345,28 +350,9 @@ def least_common_multiple(lhs: int, rhs: int, limit: int = 10) -> int:
     return commom_multiple(lhs, rhs, limit)[0]
 
 
-def isdivisor(number: int, divisor: int) -> bool:
-    """
-    判断一个数是否为约数
-
-    :param number: 被求数
-    :param divisor: 约数
-    """
-    return (number % divisor) == 0
-
-
-def divisors(number: int) -> typing.List[int]:
-    """
-    列出一个数的所有约数
-
-    :param number: 被求数
-    """
-    return factors(number)
-
-
 def common_divisor(lhs: int, rhs: int) -> typing.List[int]:
     """
-    列出两个数的公约数
+    列出两个数的公约数(短除法)
 
     :param lhs:
     :param rhs:
@@ -573,12 +559,12 @@ def test_common_divisor():
     """
     测试: 验证根据两个数列出这两个数的公共约数(除数).
     """
-    assert common_divisor(15, 20) == [5]
-    assert common_divisor(2, 3) == []
-    assert common_divisor(2, 4) == [2]
-    assert common_divisor(3, 6) == [3]
-    assert common_divisor(6, 21) == [3]
-    assert common_divisor(6, 6) == [2, 3, 6]
+    assert common_divisor(15, 20) == [1, 5]
+    assert common_divisor(2, 3) == [1, ]
+    assert common_divisor(2, 4) == [1, 2]
+    assert common_divisor(3, 6) == [1, 3]
+    assert common_divisor(6, 21) == [1, 3]
+    assert common_divisor(6, 6) == [1, 2, 3, 6]
 
 
 def test_greatest_common_divisor():
@@ -610,22 +596,20 @@ def test_greatest_common_divisor_factorization():
 
 
 def main():
-    # print([i for i in range(101) if isprime(i)])
-    print(isprime(5003))
-    # test_isprime()
-    # test_iscomposite()
-    # test_factors()
-    # test_factorization()
-    #
-    # test_multiple()
-    # test_multiples()
-    # test_common_multiple()
-    # test_least_common_multiple()
-    #
-    # test_divisor()
-    # test_common_divisor()
-    # test_greatest_common_divisor()
-    # test_greatest_common_divisor_factorization()
+    test_isprime()
+    test_iscomposite()
+    test_factors()
+    test_factorization()
+
+    test_multiple()
+    test_multiples()
+    test_common_multiple()
+    test_least_common_multiple()
+
+    test_divisor()
+    test_common_divisor()
+    test_greatest_common_divisor()
+    test_greatest_common_divisor_factorization()
 
 
 if __name__ == '__main__':

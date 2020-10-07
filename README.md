@@ -56,9 +56,9 @@ def duoxiangshi(a: int, b: int) -> int:
 因数(composite numbers | 复合数): `非0` 且 `不是质数` 的数, 都是因数.
 
 [判断一个数是否为质数(prime number)](src/factors.py#L4)   
-[判断一个数是否为因数(composite number)](src/factors.py#L25)   
-[列出一个数的所有质数(短除法)](src/factors.py#L36)   
-[列出一个数的所有质数(质因数分解法)](src/factors.py#L60)
+[判断一个数是否为因数(composite number)](src/factors.py#L100)   
+[列出一个数的所有质因数(短除法)](src/factors.py#L108)   
+[列出一个数的所有质因数(质因数分解法)](src/factors.py#L177)
 
 &nbsp;  
 # 最小公倍数(Least common multiple)
@@ -72,11 +72,11 @@ def duoxiangshi(a: int, b: int) -> int:
 > 2 和 3 公有的倍数有:  6, 12, 18, 24, 30  
 
 最小公倍数: 两个数的公有倍数清单中, 最小的那个倍数被称为最小公倍数, 以上面例子来看最小的那个公倍数就是 `6`.   
-[判断一个数是否为倍数](src/factors.py#L105)  
-[列出一个数的倍数](src/factors.py#L115)  
-[列出两个数的公倍数](src/factors.py#L195)  
-[列出两个数的最小公倍数(质因数分解法: 判断两数相乘的积是否为倍数)](src/factors.py#L208)   
-[列出两个数的最小公倍数(质因数分解法: )](src/factors.py#L288)   
+[判断一个数是否为倍数](src/factors.py#L214)  
+[列出一个数的倍数](src/factors.py#L234)  
+[列出两个数的公倍数](src/factors.py#L329)  
+[列出两个数的最小公倍数](src/factors.py#L208)   
+[列出两个数的最小公倍数(TODO: )](src/factors.py#L288)   
 
 
 
@@ -91,11 +91,16 @@ def duoxiangshi(a: int, b: int) -> int:
 > 20 和 30 公有的约数有: 1, 2, 5, 10
 
 最大公约数: 两个数公有约数清单中, 最大的那个约数被称为最大公约数, 以上面例子来看最大的那个公约数就是 `10`.    
-[判断一个数是否为约数](src/factors.py#L219)       
-[列出一个数的所有约数](src/factors.py#L229)    
-[列出两个数的公约数](src/factors.py#L238)   
-[列出两个数的最大公约数(短除法)](src/factors.py#L251)   
-[列出两个数的最大公约数(质因数分解法: 判断两数相乘的积是否小于或等于被求数)](src/factors.py#L288)   
+[判断一个数是否为约数](src/factors.py#L224)
+       
+[列出一个数的所有约数(短除法)](src/factors.py#L264)    
+[列出两个数的公约数(短除法)](src/factors.py#L353)   
+[列出两个数的最大公约数(短除法)](src/factors.py#L366)   
+
+[列出一个数的所有约数(质因数分解法)](src/factors.py#L380)    
+[列出两个数的公约数(质因数分解法)](src/factors.py#L389)      
+[列出两个数的最大公约数(质因数分解法)](src/factors.py#L401)
+   
 [列出两个数的最大公约数(辗转相除法: 欧几里得算法)](src/gcd/euclid_algorithm/README.md)    
 
 
