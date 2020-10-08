@@ -435,12 +435,8 @@ def least_common_multiple_factorization(lhs: int, rhs: int) -> int:
     for i in left_diffs: temp.append(i)
     for i in right_diffs: temp.append(i)
     for i in intersections:
-        times = 0
-        if lhs_counter[i] > rhs_counter[i]:
-            times = lhs_counter[i]
-        else:
-            times = rhs_counter[i]
-        [temp.append(i) for j in range(times)]
+        ss = max(lhs_counter[i], rhs_counter[i])
+        [temp.append(i) for j in range(ss)]
 
     sorted_temp = sorted(temp)
     return reduce(lambda x, y: x * y, sorted_temp)

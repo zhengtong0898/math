@@ -78,7 +78,7 @@ def duoxiangshi(a: int, b: int) -> int:
 [列出两个数的最小公倍数(Brute Force解法)](src/factors.py#L342)   
 [列出两个数的最小公倍数(质因数分解法)](src/factors.py#L413)   
 [列出两个数的最小公倍数(最大公约数解法)]()   
-[列出多个数的最小公倍数(质因数分解法)]()   
+[列出多个数的最小公倍数]()   
 
 
 
