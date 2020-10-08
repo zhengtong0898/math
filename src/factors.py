@@ -406,7 +406,13 @@ def greatest_common_divisor_factorization(lhs: int, rhs: int) -> int:
     :return:
     """
     cd = common_divisor_factorization(lhs, rhs)
-    gcd = cd[-1] if len(cd) > 0 else 1
+    gcd = 1                     # len(cd)  < 1
+    if len(cd) >= 1:            # len(cd) >= 1
+        gcd = cd[-1]
+    if len(cd) == 1:            # len(cd) == 1
+        divisor = cd[-1] ** 2
+        if lhs % divisor == rhs % divisor == 0:
+            gcd = divisor
     return gcd
 
 
@@ -440,6 +446,15 @@ def least_common_multiple_factorization(lhs: int, rhs: int) -> int:
 
     sorted_temp = sorted(temp)
     return reduce(lambda x, y: x * y, sorted_temp)
+
+
+def least_common_multiple_formula(lhs: int, rhs: int) -> int:
+    """
+    列出两个数的最小公倍数(最大公约数解法)
+    参考: https://byjus.com/lcm-formula/
+    """
+    gcd = greatest_common_divisor_factorization(lhs, rhs)
+    return int((lhs * rhs) / gcd)
 
 
 def test_isprime():
@@ -627,6 +642,18 @@ def test_greatest_common_divisor_factorization():
     assert greatest_common_divisor_factorization(6, 6) == 3
 
 
+def test_least_common_multiple_factorization():
+    assert least_common_multiple_factorization(16, 4) == 16
+    assert least_common_multiple_factorization(12, 80) == 240
+    assert least_common_multiple_factorization(50, 65) == 650
+
+
+def test_least_common_multiple_formula():
+    assert least_common_multiple_formula(16, 4) == 16
+    assert least_common_multiple_formula(12, 80) == 240
+    assert least_common_multiple_formula(50, 65) == 650
+
+
 def main():
     test_isprime()
     test_iscomposite()
@@ -637,6 +664,8 @@ def main():
     test_multiples()
     test_common_multiple()
     test_least_common_multiple()
+    test_least_common_multiple_factorization()
+    test_least_common_multiple_formula()
 
     test_divisor()
     test_common_divisor()
@@ -653,3 +682,4 @@ if __name__ == '__main__':
 # https://www.youtube.com/watch?v=fdUXGZogSxE
 # https://www.mathsisfun.com/prime-factorization.html
 # https://www.mathsisfun.com/prime-composite-number.html
+# https://byjus.com/lcm-formula/
