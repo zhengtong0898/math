@@ -410,6 +410,42 @@ def greatest_common_divisor_factorization(lhs: int, rhs: int) -> int:
     return gcd
 
 
+def least_common_multiple_factorization(lhs: int, rhs: int) -> int:
+    """
+    列出两个数的最小公倍数(质因数分解法)
+    参考: http://www.math.com/school/subject1/lessons/S1U3L3DP.html
+    """
+    from collections import Counter
+    from functools import reduce
+
+    lhs_factors = factorization(lhs)
+    rhs_factors = factorization(rhs)
+
+    lhs_counter = Counter(lhs_factors)
+    rhs_counter = Counter(rhs_factors)
+
+    lhs_keys = set(lhs_counter.keys())
+    rhs_keys = set(rhs_counter.keys())
+
+    intersections = lhs_keys.intersection(rhs_keys)
+    left_diffs = lhs_keys.difference(rhs_keys)
+    right_diffs = rhs_keys.difference(lhs_keys)
+
+    temp: typing.List[int] = []
+    for i in left_diffs: temp.append(i)
+    for i in right_diffs: temp.append(i)
+    for i in intersections:
+        times = 0
+        if lhs_counter[i] > rhs_counter[i]:
+            times = lhs_counter[i]
+        else:
+            times = rhs_counter[i]
+        [temp.append(i) for j in range(times)]
+
+    sorted_temp = sorted(temp)
+    return reduce(lambda x, y: x * y, sorted_temp)
+
+
 def test_isprime():
     """
     测试: 验证一个数是否为质数/素数(prime)

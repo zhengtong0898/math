@@ -75,8 +75,10 @@ def duoxiangshi(a: int, b: int) -> int:
 [判断一个数是否为倍数](src/factors.py#L214)  
 [列出一个数的倍数](src/factors.py#L234)  
 [列出两个数的公倍数](src/factors.py#L329)  
-[列出两个数的最小公倍数](src/factors.py#L208)   
-[列出两个数的最小公倍数(TODO: )](src/factors.py#L288)   
+[列出两个数的最小公倍数(Brute Force解法)](src/factors.py#L342)   
+[列出两个数的最小公倍数(质因数分解法)](src/factors.py#L413)   
+[列出两个数的最小公倍数(最大公约数解法)]()   
+[列出多个数的最小公倍数(质因数分解法)]()   
 
 
 
