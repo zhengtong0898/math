@@ -132,15 +132,27 @@ def duoxiangshi(a: int, b: int) -> int:
 
 &nbsp;  
 # 平方根(sqaure root)
-平方根指的是: 一个数能被平方, 那么就要可以被逆平方, 这个逆运算的结果就叫做平方根.   
-平方根的符号表示为: $ \sqrt{100} = 10 $
-https://www.geeksforgeeks.org/find-square-root-number-upto-given-precision-using-binary-search/
+平方根指的是: 一个数能被平方, 那么就要可以被逆平方, 这个逆运算的结果就叫做平方根, 平方通常用于表示面积.   
+平方根的符号表示为: $ \sqrt{100} = 10 $   
+```python3
+square_root_operator = 100 ** 0.5               // output: 10.0
+square_root_function = math.sqrt(100)           // output: 10.0
+```
+[打印平方根小数的位数](https://www.geeksforgeeks.org/find-square-root-number-upto-given-precision-using-binary-search/)
 
 
 &nbsp;  
 # 立方根(cube root)
-平方根的符号表示为: $ \sqrt[3]{100} = 10 $
+立方通常用于表示体积.   
+平方根的符号表示为: $ \sqrt[3]{27} = 3 $
 
+```python3
+cube_root1 = 27 ** (1.0 / 3)                    // output: 3.0
+cube_root2 = 64 ** (1.0 / 3)                    // output: 4.0
+cube_root3 = math.pow(64, 1.0/3)                // output: 4.0
+```
+
+&nbsp;  
 
 
 
