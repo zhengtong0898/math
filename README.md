@@ -152,6 +152,13 @@ cube_root2 = 64 ** (1.0 / 3)                    // output: 4.0
 cube_root3 = math.pow(64, 1.0/3)                // output: 4.0
 ```
 
+判断一个数是否可以被立方根
+```python3
+def is_perfect_cube(x):
+    x = abs(x)
+    return int(round(x ** (1.0 / 3))) ** 3 == x
+```
+
 &nbsp;  
 
 
